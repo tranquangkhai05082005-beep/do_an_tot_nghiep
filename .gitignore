@@ -1,0 +1,72 @@
+# ==============================================================================
+# PYTHON & VIRTUAL ENVIRONMENTS
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+.conda/
+
+# ==============================================================================
+# DEEP LEARNING WEIGHTS, DATASETS & MEDIA
+# ==============================================================================
+# Trọng số mô hình dung lượng lớn (tải qua scripts/setup_models.py)
+models/weights/*.pt
+models/weights/*.pth
+models/weights/*.onnx
+models/weights/*.tflite
+models/weights/*.engine
+models/weights/*.weights
+
+# Tập dữ liệu huấn luyện & video test
+data/
+datasets/
+runs/
+*.mp4
+*.avi
+*.mkv
+*.mov
+
+# ==============================================================================
+# LOGS & RUNTIME OUTPUTS
+# ==============================================================================
+logs/*.log
+logs/*.csv
+logs/*.json
+*.log
+
+# ==============================================================================
+# IDE, EDITORS & OS
+# ==============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini

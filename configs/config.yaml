@@ -1,0 +1,41 @@
+# ==============================================================================
+# CẤU HÌNH HỆ THỐNG PHÁT HIỆN BUỒN NGỦ & MẤT TẬP TRUNG TÀI XẾ
+# ==============================================================================
+
+camera:
+  source: 0                 # 0: Webcam mặc định (hoặc đường dẫn video test)
+  width: 640
+  height: 480
+  fps_target: 30
+
+# --- Nhánh 1: Ngưỡng Đặc trưng Hình học (MediaPipe Face Mesh 468 Landmarks) ---
+geometric:
+  ear_threshold: 0.22       # Eye Aspect Ratio < 0.22 -> Mắt nhắm
+  mar_threshold: 0.65       # Mouth Aspect Ratio > 0.65 -> Đang mở miệng ngáp
+  pitch_threshold: 20.0     # Góc cúi/ngửa đầu (độ) vượt ngưỡng -> Gật gù / Mất tập trung
+  yaw_threshold: 30.0       # Góc quay trái/phải (độ) vượt ngưỡng -> Nhìn ngang
+  roll_threshold: 25.0      # Góc nghiêng đầu (độ)
+  ema_alpha: 0.35           # Hệ số làm mượt Exponential Moving Average chống nhiễu điểm mốc
+
+# --- Nhánh 2: Cấu hình Deep Learning (YOLOv8n & MobileNetV2) ---
+deep_learning:
+  yolo_weights: "models/weights/yolov8n.pt"
+  eye_mouth_classifier: "models/weights/mobilenetv2_state.onnx"
+  conf_threshold: 0.45
+  iou_threshold: 0.45
+  frame_skip: 2             # Chạy nhánh DL mỗi N frame để tối ưu >25 FPS trên CPU
+  phone_class_id: 67        # Class ID của 'cell phone' trong bộ COCO (YOLOv8)
+
+# --- Nhánh 3: Bộ đếm thời gian & Logic Kết hợp (Temporal Fusion) ---
+fusion:
+  drowsy_time_thresh: 1.5   # Nhắm mắt liên tục >= 1.5 giây -> Cảnh báo Buồn ngủ
+  yawn_time_thresh: 2.0     # Ngáp liên tục >= 2.0 giây -> Cảnh báo Mệt mỏi/Ngáp
+  head_pose_time_thresh: 2.0 # Quay đầu/cúi đầu liên tục >= 2.0 giây -> Mất tập trung
+  phone_time_thresh: 1.0    # Phát hiện dùng điện thoại >= 1.0 giây -> Mất tập trung
+
+# --- Cảnh báo Âm thanh (Non-blocking Audio) ---
+alert:
+  enabled: true
+  cooldown_seconds: 3.0     # Khoảng nghỉ giữa 2 lần phát cảnh báo liên tiếp
+  sound_drowsy: "assets/sounds/alarm_drowsy.wav"
+  sound_distracted: "assets/sounds/alarm_distracted.wav"

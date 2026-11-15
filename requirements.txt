@@ -1,0 +1,24 @@
+# ==============================================================================
+# DRIVER DROWSINESS & DISTRACTION DETECTION SYSTEM (HYBRID CV + DEEP LEARNING)
+# Target: Python 3.9 - 3.11 | Real-time CPU Execution (>25 FPS)
+# ==============================================================================
+
+# --- Core Computer Vision & Geometric Feature Extraction (Branch 1) ---
+opencv-python>=4.8.0,<5.0.0
+mediapipe>=0.10.9,<0.11.0
+numpy>=1.24.0,<2.0.0
+scipy>=1.10.0
+
+# --- Deep Learning & High-Speed CPU Inference (Branch 2) ---
+ultralytics>=8.1.0        # YOLOv8n (Phone / Distraction / State Detection)
+onnxruntime>=1.16.0       # Tăng tốc suy luận CNN/YOLO trên CPU gấp 2-3x
+torch>=2.0.0              # PyTorch backend cho huấn luyện / MobileNetV2 & YOLOv8
+torchvision>=0.15.0
+
+# --- Non-blocking Audio Alert & Configuration ---
+pygame>=2.5.0             # Phát âm thanh đa luồng (multithreaded mixer) độ trễ thấp
+PyYAML>=6.0.1             # Quản lý ngưỡng (thresholds) và siêu tham số tập trung
+
+# --- User Interface & Visualization ---
+PyQt5>=5.15.9             # Giao diện Dashboard trực quan thời gian thực
+pillow>=10.0.0            # Hỗ trợ vẽ font tiếng Việt và xử lý ảnh trên UI
